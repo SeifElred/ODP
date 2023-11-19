@@ -1,0 +1,57 @@
+package observerdesignpattern;
+
+import java.util.ArrayList;
+
+public class AdemHoca {
+
+	public static void main(String[] args) {
+		Notifier not = new Notifier();
+		Car car = new Car();
+		not.subscribe(car);
+		Cat cat = new Cat();
+		not.subscribe(cat);
+		Cup cup = new Cup();
+		not.subscribe(cup);
+		not.notifyObservers();
+	}
+
+}
+class Notifier {
+	ArrayList <Observers> observers;
+	
+	Notifier() {
+		this.observers = new ArrayList<>();
+	}
+	
+	void subscribe(Observers observer) {
+		observers.add(observer);
+	}
+	
+	void notifyObservers() {
+		for(Observers observer : observers) {
+			observer.update("Message");
+		}
+	}
+	
+}
+
+interface Observers {
+	public void update(String message);
+}
+
+
+class Cat implements Observers {
+	public void update(String s) {
+		System.out.println("I am a Cat");
+	}
+}
+class Car implements Observers {
+	public void update(String s) {
+		System.out.println("I am a Car");
+	}
+}
+class Cup implements Observers {
+	public void update(String s) {
+		System.out.println("I am a Cup");
+	}
+}
